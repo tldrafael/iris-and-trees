@@ -30,22 +30,22 @@ iris %<>%  as_tibble()
 O dataset Íris contém medidas de comprimento e largura da pétala e da sépala de três espécies de íris:
 
 **Versicolor**
-![](/home/rafael/Dropbox/kaggle/iris-species/pics/iris-versicolor.jpg)
+![](./pics/iris-versicolor.jpg)
 
  
 
 **Setosa**
-![](/home/rafael/Dropbox/kaggle/iris-species/pics/iris-setosa.jpg)
+![](./pics/iris-setosa.jpg)
 
  
 
 **Virgínica**
-![](/home/rafael/Dropbox/kaggle/iris-species/pics/iris-virginica.jpg)
+![](./pics/iris-virginica.jpg)
 
  
 
 **Estrutura da flor:**
-![](/home/rafael/Dropbox/kaggle/iris-species/pics/morfologia-da-flor.jpg)
+![](./pics/morfologia-da-flor.jpg)
 
 ------------------------------------------------------------------------
 
@@ -163,14 +163,14 @@ Cada micro-região representa uma folha. O espaço preditor 2-D está segmentado
 
 Agora,pondo uma figura 3D de um outro modelo aleatório como o de abaixo, percebemos também a estratificação, cada nível descreve a profundidade do ramal.
 
-![](/home/rafael/Dropbox/kaggle/iris-species/pics/stratification-3D.png)
+![](./pics/stratification-3D.png)
 
 Vista superior da figura 3D:
-![](/home/rafael/Dropbox/kaggle/iris-species/pics/o-que-a-arvore-faz.png)
+![](./pics/o-que-a-arvore-faz.png)
 
 *Outro detalhe importante sobre a divisão do espaço, trabalhando-se com AD, é o que não acontece, como abaixo:*
 
-![](/home/rafael/Dropbox/kaggle/iris-species/pics/o-que-a-arvore-NAO-faz.png)
+![](./pics/o-que-a-arvore-NAO-faz.png)
 
 ------------------------------------------------------------------------
 
