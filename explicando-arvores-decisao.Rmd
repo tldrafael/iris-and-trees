@@ -9,7 +9,7 @@ mathjax: local
 ***
 ## O Problema
 
-Esse notebook introduz conceitos do algoritmo de **Árvore de Decisão** (AD), para ilustrações do fato, usarei o dataset *Iris*.
+Esse notebook introduz conceitos do algoritmo de **Árvore de Decisão** (AD), e para ilustrações do fato, faço uso do dataset *Íris*.
 
 ```{r, message=F, echo=T, results=F}
 # estabelecendo o ambiente
@@ -32,28 +32,21 @@ iris %<>%  as_tibble()
 
 O dataset Íris contém medidas de comprimento e largura da pétala e da sépala de três espécies de íris:   
 
-**Versicolor**
-<div style="width:300px; height=200px">
-![](/home/rafael/Dropbox/kaggle/iris-species/pics/iris-versicolor.jpg)
-</div>
+**Versicolor**  
+<img src="./pics/iris-versicolor.jpg" width="300" height="300" />
 &nbsp;
 
-**Setosa**
-<div style="width:300px; height=200px">
-![](/home/rafael/Dropbox/kaggle/iris-species/pics/iris-setosa.jpg)
-</div>
+**Setosa**  
+<img src="./pics/iris-setosa.jpg" width="300" height="200" />
 &nbsp;
 
-**Virgínica**
-<div style="width:300px; height=200px">
-![](/home/rafael/Dropbox/kaggle/iris-species/pics/iris-virginica.jpg)
-</div>
+**Virgínica**  
+<img src="./pics/iris-virginica.jpg" width="300" height="200" />
 &nbsp;
 
-**Estrutura da flor:**
-<div style="width:300px; height=200px">
-![](/home/rafael/Dropbox/kaggle/iris-species/pics/morfologia-da-flor.jpg)
-</div>
+**Estrutura da flor:**  
+<img src="./pics/morfologia-da-flor.jpg" width="300" height="200" />
+
 ***
 
 O dataset contém 150 amostras, 50 de cada espécie. 
@@ -149,24 +142,24 @@ train %>% ggplot(aes(x=Petal.Length, y=Petal.Width, colour=Species)) +
 
 ```
 
-Cada micro-região representa uma folha. O espaço preditor 2-D está segmentado. 
+Cada micro-região representa uma folha. O espaço preditor visto em 2D está segmentado. 
 
-Agora,pondo uma figura 3D de um outro modelo aleatório como o de abaixo, percebemos também a estratificação, cada nível descreve a profundidade do ramal.  
+Agora, pondo para ilustração da estratificação, representamos o espaço preditor 2D de um modelo aleatório como uma figura 3D, cada nível descreve a profundidade do ramal.  
 
 <div style="width:300px; height=200px">
-![](/home/rafael/Dropbox/kaggle/iris-species/pics/stratification-3D.png)
+![](./pics/stratification-3D.png)
 </div>
 
 Vista superior da figura 3D:
 <div style="width:300px; height=200px">
-![](/home/rafael/Dropbox/kaggle/iris-species/pics/o-que-a-arvore-faz.png)
+![](./pics/o-que-a-arvore-faz.png)
 </div>
 
 
 *Outro detalhe importante sobre a divisão do espaço, trabalhando-se com AD, é o que não acontece, como abaixo:*
 
 <div style="width:300px; height=200px">
-![](/home/rafael/Dropbox/kaggle/iris-species/pics/o-que-a-arvore-NAO-faz.png)
+![](./pics/o-que-a-arvore-NAO-faz.png)
 </div>
 
 
@@ -176,9 +169,9 @@ Vista superior da figura 3D:
 
 **-- Ideia Básica:**
 
-1. Escolha o melhor preditor $A$ e o seu melhor limiar de decisão para raiz da árvore.
-2. Separe o trainset $S$ e, subsets ${S_1, S_2, ..., S_k}$, onde cada subset $S_i$ contém amostras de igual valor para a condição imposta.
-3. Recursivamente, aplique o algoritmo para cada novo subset $S_i$ até que todos os nós-terminais contenham a mesma classe.
+1. Dentro do espaço preditor do conjunto de treinamento $S$, escolha o melhor preditor $A$ e o seu melhor valor de limiar como decisão para a raiz da árvore.
+2. Divida o espaço $S$ em subsets ${S_1, S_2, ..., S_k}$, em que cada subset $S_i$ contém amostras de mesmo valor resultante da decisão escolhida em **1**.
+3. Recursivamente, aplique os passos **1** e **2** para cada novo subset $S_i$ até que todos os *nós* contenham somente elementos da mesma classe.
 
 **Como escolher o melhor preditor *feature* no nó da árvore?**
 
@@ -256,7 +249,7 @@ Para decidir em quais dos pontos de decisão ocorrerá a divisão, usa-se o conc
 
 $$\Delta{E} = p(S_{1})E(S_{1}) - \Big[p(S_{11})E(S_{11}) + p(S_{12})E(S_{12})\Big]$$
 
-No nosso caso temos duas variáveis contínuas. Para cada atributo, são testados todos os valores contínuos do domínio daquela variável. O limiar que obter o maior valor de Ganho, é o selecionado.
+No nosso caso temos duas variáveis contínuas. Para cada atributo, todos os valores dentro do domínio daquela variável são testados como ponto de decisão, o que obter o maior *ganho de informação* é o selecionado.
 
 ```{r}
 fs_entropy <- function(S){
@@ -311,7 +304,7 @@ ggplot(delta_E, aes(x=i, y=dE)) +
 ```
 
 
-Aqui há um empate entre os dois atributos que antigem o mesmo o valor máximo de ganho.  Em *petal.length*, o valor máximo se repete em uma faixa do domínio.
+Aqui há um empate entre os dois atributos que antigem o mesmo o máximo valor de ganho.  Em `petal.length`, o valor máximo se repete em uma faixa do domínio.
 
 ```{r}
 delta_E %>% filter(dE==max(dE)) %>%  filter(A=="Petal.Length") %>%  select(i) %>%  range()
@@ -334,18 +327,14 @@ Replicar o processo de divisão com todos os novos nós-filhos gerados.
 ***
 ### Podagem da Árvore e Overfitting
 
-<div style="width:300px; height=200px">
-<p align="center">
-![](./pics/tree-pruning-guide.jpg)
-</p>
-</div>
+<img src="./pics/tree-pruning-guide.jpg" width="300" height="200" />
 
 
 $$\sum_{m=1}^{|T|}\sum_{x_i\in{S_m}}(y_i - \hat{y}_{R_m})^2 + \alpha|T|$$
 
-Após a árvore completamente modelada, existe uma tendência do algoritmo super ajustar os limites de decisão ao conjunto de treinamento, o algoritmo acaba aprendendo informações particulares do conjunto que são aleatoriedades da informação, e não necessariamente se repetirão para o conjunto de teste.
+Após a árvore completamente modelada, existe uma tendência do algoritmo super ajustar os limites de decisão ao conjunto de treinamento, o algoritmo acaba aprendendo as informações particulares do conjunto, que são ruídos da informação, e não necessariamente se repetirão para o conjunto de teste.
 
-Para a podagem, adiciona-se um regulador $\alpha$ que penaliza cada vez que o comprimento da árvore $|T|$ cresça. A função converge, por exemplo, no momento que o ganho da divisão do nó não compensa mais o fator de punição. 
+Para a podagem, adiciona-se um regulador $\alpha$ que penaliza cada vez que o comprimento da árvore $|T|$ aumenta. A função convergirá no momento que o ganho da informação ao dividir o não não compensar o fator de punição. 
 
 ```{r}
 tree.fit.pr <- prune(tree.fit, cp=0.1)
@@ -357,7 +346,7 @@ fancyRpartPlot(tree.fit.pr, sub="")
 ***
 ### Comparando predição entre a árvore inteira e a podada.
 
-Os dois primeiros números são a acertividade sobre o conjunto de treinamento, o primeiro valor é o da árvore inteira e o segundo a da podada, como esperado a da árvore intera se sobressai em performance, possuindo mais profundidade que segmente todas nuances do conjunto. 
+Os dois primeiros números são a acertividade sobre o conjunto de treinamento, o primeiro valor é o da árvore inteira e o segundo a da podada, como esperado a da árvore inteira se sobressai em performance nesse conjunto, pois possui mais profundidade e engloba todas nuances do conjunto. 
 
 ```{r}
 train.pred.1 <- predict(tree.fit, train, type="class")
@@ -373,7 +362,7 @@ mean(train.pred.2==train$Species) %>% round(3) %>% `*`(., 100)
 
 &nbsp;
 
-Agora no conjunto de teste, a performance de ambas são equivalentes A árvore podada, de estrutura menos complexa, consegue atender igualmente predições para as amostras novas.
+Agora no conjunto de teste, a performance de ambos são equivalentes. A árvore podada, de estrutura menos complexa, consegue atender igualmente as predições para as amostras novas.
 
 
 ```{r}
@@ -413,7 +402,7 @@ mean(test.pred.2==test$Species) %>% round(3) %>% `*`(., 100)
 &nbsp;
 
 ***
-## O Lado A e B do modelos de Árvore de Decisão
+## O Lado A e B dos modelos de Árvore de Decisão
 
 ### Prós
 
