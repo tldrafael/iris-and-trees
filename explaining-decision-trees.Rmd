@@ -2,14 +2,13 @@
 title: "Decision Trees"
 output:
   html_document: default
-  html_notebook: default
 mathjax: local
 ---
 
 ***
 ## Problem
 
-This kernel presents concepts about how the Decision Trees (DT) works, to ilustrate it, i am going to use the Iris dataset and develop in R language.
+This kernel presents concepts about how **Decision Trees** (DT) works, to ilustrate it, i am going to use the Iris dataset and develop in R language.
 
 
 ```{r, message=F, echo=T, results=F}
@@ -170,7 +169,7 @@ Vista superior da figura 3D:
 3. Recursively, apply the steps **1** and **2** for each new subset $S_i$ until all nodes have only elements of the same class.
 
 
-** How choose the best predictor to split in the tree node??**
+**How choose the best predictor to split in the tree node??**
 
 1. Error rate? -> it doesn't coverge well, it's not sensitive to the tree growth.
 

@@ -1,7 +1,6 @@
 ---
 title: "Árvores de Decisão"
 output:
-  html_notebook: default
   html_document: default
 mathjax: local
 ---
